@@ -1,21 +1,11 @@
 package com.application;
 
-import org.w3c.dom.ranges.Range;
-
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class View {
 
     FileManager fileManager = new FileManager();
-
-    public void userExistView(String login){
-        if (fileManager.userExist(login)){
-            System.out.println("User Exist");
-        }else {
-            System.out.println("User doesn't Exist");
-        }
-    }
+    UserManager userManager = new UserManager();
 
     public void userInterface(){
         System.out.println("Hello");
@@ -25,41 +15,62 @@ public class View {
         System.out.println("Remove user press 4.");
     }
 
-
-    public void userInteraction(){
+    public void userInteraction() {
 
         Scanner scan = new Scanner(System.in);
-        String dataFromUser = scan.nextLine();
-        int userNumber = Integer.parseInt(dataFromUser);
 
+        while (true) {
 
-        switch (userNumber) {
-            case 1: // create user
-                System.out.println("Set login");
-                String login = scan.nextLine();
-                System.out.println("Set password");
-                String pass = scan.nextLine();
-                fileManager.createUser(login,pass);
-                break;
-            case 2:
-                System.out.println("Login");
-                String login2 = scan.nextLine();
-                System.out.println("Password");
-                String pass2 = scan.nextLine();
-                fileManager.checkLoginAndPassword(login2, pass2);
-                break;
-            case 3: // check if user exist
-                System.out.println("Enter login");
-                String login3 = scan.nextLine();
-                userExistView(login3);
-                break;
-            case 4: // remove user
-                System.out.println("Set login");
-                String login4 = scan.nextLine();
-                fileManager.deleteUser(login4);
-                break;
+            userInterface();
+
+            String dataFromUser = scan.nextLine();
+            int userNumber = Integer.parseInt(dataFromUser);
+
+            switch (userNumber) {
+                case 1 -> { // create user
+                    System.out.println("Set login");
+                    String login = scan.nextLine();
+                    System.out.println("Set password");
+                    String pass = scan.nextLine();
+                    userManager.createUser(login, pass);
+                }
+                case 2 -> {
+                    System.out.println("Login");
+                    String login2 = scan.nextLine();
+                    System.out.println("Password");
+                    String pass2 = scan.nextLine();
+                    userManager.logged(login2, pass2);
+                }
+                case 3 -> { // check if user exist
+                    System.out.println("Enter login");
+                    String login3 = scan.nextLine();
+                    if(userManager.userExist(login3)){
+                        System.out.println("User exist");
+                    }else {
+                        System.out.println("User doesn't exist");
+
+                    }
+                }
+                case 4 -> { // remove user
+                    System.out.println("Set login");
+                    String login4 = scan.nextLine();
+                    userManager.deleteUser(login4);
+                }
+                case 5 -> {
+                    System.out.println("Login");
+                    String log = scan.nextLine();
+                    System.out.println("WebName");
+                    String webName = scan.nextLine();
+                    System.out.println("Login to web page");
+                    String loginToWebName = scan.nextLine();
+                    System.out.println("Password to web page");
+                    String passwordToWebName = scan.nextLine();
+                    userManager.addWebData(log,webName, loginToWebName, passwordToWebName);
+                }
+            }
         }
-
     }
+
+
 
 }
