@@ -1,0 +1,7 @@
+1 tworzenie usera/dodwanie
+1.1 sprawdzenei czy user istnieje
+2 usuwanie usera
+3 dodawanie strony wraz z danymi
+4 listowanie stron z hasłami
+5 modyfikacja haseł
+6
