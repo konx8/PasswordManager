@@ -17,6 +17,8 @@ public class UserManager {
         }
         if(!userExist(login)){
             addUserToExistingList(login, pass);
+        }else {
+            System.out.println("User already exist");
         }
     }
 
@@ -27,7 +29,6 @@ public class UserManager {
                     Set<User> userListToUpdate = fileManager.getDataFromFile();
                     userListToUpdate.remove(setObj);
                     fileManager.saveDataToFile(userListToUpdate);
-                    System.out.println("User " + login + " removed");
                 }
             }
         }
@@ -53,10 +54,7 @@ public class UserManager {
         for(User setObj : fileManager.getDataFromFile()){
             if(setObj.getLogin().equals(login) ){
                 if (setObj.getPassword().equals(pass)){
-                    System.out.println("logged");
                     return true;
-                }else {
-                    System.out.println("Wrong password");
                 }
             }
         }
@@ -72,31 +70,15 @@ public class UserManager {
         return null;
     }
 
-    public void logged(String login,String pass){
-        if(checkLoginAndPassword(login, pass)){
-            System.out.println("Hello " + login);
-            System.out.println("To add web");
-
-
-        }
-        else {
-            System.out.println("Wrong login or password");
-        }
+    public boolean logged(String login,String pass){
+        return checkLoginAndPassword(login, pass);
     }
 
-    public void addWebData(String log, String webName, String loginToWeb, String passToWeb){
+    public void getAllUsers(){
 
-        User user = getUserByLogin(log);
-        Set<PasswordData> data = user.getSavePasswords();
-        if (data == null) {
-            user.setSavePasswords(Set.of(new PasswordData(webName,loginToWeb,passToWeb)));
-            fileManager.saveDataToFile(Collections.singleton(user));
-        }else {
-            data.add(new PasswordData(webName,loginToWeb,passToWeb));
-            fileManager.saveDataToFile(data);
+        for(User user : fileManager.getDataFromFile()){
+            System.out.println(user.getLogin()+"\n");
         }
-
     }
-
 
 }

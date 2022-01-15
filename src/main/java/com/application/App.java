@@ -4,9 +4,9 @@ package com.application;
 public class App {
     public static void main(String[] args) {
 
-        View view = new View();
+        UserView userView = new UserView();
         //view.userInterface();
-        view.userInteraction();
+        userView.userInteraction();
     }
 
 }

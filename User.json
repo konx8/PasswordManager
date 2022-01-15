@@ -1,1 +1,13 @@
-[{"login":"john","password":"321","savePasswords":null},{"login":"tt","password":"ad","savePasswords":null},{"login":"tom","password":"123","savePasswords":null}]
+[ {
+  "login" : "tom",
+  "password" : "123",
+  "savePasswords" : [ {
+    "webName" : "b",
+    "login" : "b",
+    "password" : "b"
+  }, {
+    "webName" : "m",
+    "login" : "m",
+    "password" : "m"
+  } ]
+} ]
