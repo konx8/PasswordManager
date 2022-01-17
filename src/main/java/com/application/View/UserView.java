@@ -1,4 +1,7 @@
-package com.application;
+package com.application.View;
+
+import com.application.Manager.PasswordPageManager;
+import com.application.Manager.UserManager;
 
 import java.util.Scanner;
 
@@ -18,6 +21,18 @@ public class UserView {
         System.out.println("");
     }
 
+    public boolean checkUserInput(String input){
+
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Input in not a number.");
+            System.out.println("");
+        }
+        return false;
+    }
+
     public void loggedInterface(String login2){
 
         Scanner scan2 = new Scanner(System.in);
@@ -33,7 +48,15 @@ public class UserView {
             System.out.println("");
 
             String dataFromUser = scan2.nextLine();
-            int userNumber = Integer.parseInt(dataFromUser);
+
+            int userNumber;
+
+            if (checkUserInput(dataFromUser)){
+               userNumber = Integer.parseInt(dataFromUser);
+            }
+            else {
+               userNumber = 9;
+            }
 
             switch (userNumber) {
                 case 1 -> {
@@ -48,8 +71,11 @@ public class UserView {
                 case 2 -> {
                     System.out.println("Enter the page you want to delete");
                     String webName = scan2.nextLine();
-
-                    ppm.deletePage(login2,webName);
+                    if (!ppm.checkIfPageIsNull(login2)){
+                        ppm.deletePage(login2, webName);
+                    }else {
+                        System.out.println("No saved pages");
+                    }
                 }
                 case 3 -> {
                     System.out.println("Passwords saved on pages:");
@@ -77,13 +103,18 @@ public class UserView {
         int exit = 0;
 
         System.out.println("Hello");
-
         while (exit == 0) {
 
             userInterface();
-
+            int userNumber;
             String dataFromUser = scan.nextLine();
-            int userNumber = Integer.parseInt(dataFromUser);
+
+            if (checkUserInput(dataFromUser)){
+               userNumber = Integer.parseInt(dataFromUser);
+            }
+            else {
+               userNumber = 9;
+            }
 
             switch (userNumber) {
                 case 1 -> { // create user
@@ -131,7 +162,6 @@ public class UserView {
                 case 0 -> {
                     exit = 1;
                 }
-
             }
         }
     }

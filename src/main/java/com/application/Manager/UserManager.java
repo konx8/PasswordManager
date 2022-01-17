@@ -1,4 +1,6 @@
-package com.application;
+package com.application.Manager;
+
+import com.application.Data.User;
 
 import java.io.IOException;
 import java.util.*;
@@ -8,6 +10,7 @@ public class UserManager {
     FileManager fileManager = new FileManager();
 
     public void createUser(String login, String pass){
+
         if(!fileManager.dataFile.exists()) {
             try {
                 fileManager.objectMapper.writeValue(fileManager.dataFile, "");

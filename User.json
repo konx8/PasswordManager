@@ -2,11 +2,15 @@
   "login" : "tom",
   "password" : "123",
   "savePasswords" : [ {
-    "webName" : "b",
+    "webName" : "a",
     "login" : "b",
     "password" : "b"
-  }, {
-    "webName" : "m",
+  } ]
+}, {
+  "login" : "t",
+  "password" : "a",
+  "savePasswords" : [ {
+    "webName" : "n",
     "login" : "m",
     "password" : "m"
   } ]

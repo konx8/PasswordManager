@@ -1,4 +1,7 @@
-package com.application;
+package com.application.Manager;
+
+import com.application.Data.PasswordData;
+import com.application.Data.User;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,17 +45,35 @@ public class PasswordPageManager {
         return false;
     }
 
+    public boolean checkIfPageIsNull(String log){
+        return userManager.getUserByLogin(log).getSavePasswords() == null;
+    }
+
     public void deletePage(String log, String webName){
 
+        User user = userManager.getUserByLogin(log);
+        User userToUpdate = new User(user.getLogin(), user.getPassword());
+        Set<User> userList = fileManager.getDataFromFile();
+
+        Set<PasswordData> passwordData = new HashSet<>();
+
         Set<User> userListToUpdate = fileManager.getDataFromFile();
-        if(checkIfPageAlreadyExist(webName)){
+        if (checkIfPageAlreadyExist(webName)) {
             for (User setObj : userListToUpdate) {
                 if (setObj.getLogin().equals(log)) {
                     for (PasswordData passData : setObj.getSavePasswords()) {
-                        System.out.println(passData);
-                        //fileManager.saveDataToFile(userListToUpdate);
+                        if (!passData.getWebName().equals(webName)) {
+                            passwordData.add(passData);
+                        }
                     }
                 }
+            }
+        }
+        userToUpdate.setSavePasswords(passwordData);
+        for (User setObj : userList) {
+            if (setObj.getLogin().equals(log)) {
+                setObj.setSavePasswords(userToUpdate.getSavePasswords());
+                fileManager.saveDataToFile(userList);
             }
         }
     }
@@ -68,8 +89,6 @@ public class PasswordPageManager {
         System.out.println(userListToUpdate);
 
     }
-
-
 
     public void viewAllPages(String login){
         for (User setObj : fileManager.getDataFromFile()) {
@@ -98,7 +117,5 @@ public class PasswordPageManager {
             }
         }
     }
-
-
 
 }
